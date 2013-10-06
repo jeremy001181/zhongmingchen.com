@@ -4,9 +4,11 @@
  */
 
 var express = require('express');
-//var express = require('coffeeup');
 var routes = require('./routes');
 var user = require('./routes/user');
+var register = require('./routes/register');
+var account = require('./routes/account');
+var autocomplete = require('./routes/autocomplete');
 var http = require('http');
 var path = require('path');
 
@@ -31,6 +33,10 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('/register', register.get);
+app.post('/register', register.post);
+app.get('/account/:name', account.get);
+app.get('/autocomplete', autocomplete.get);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
