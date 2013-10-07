@@ -18,35 +18,18 @@ exports.post = function(req, res)
 	if (!_name) 
 		return;
 	
-	var idxName = _name ? _name.trim().toLowerCase().split(/\s+/) : null;
-				
 	dbclient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
-	    if(err) throw err;
+	    
+		if(err) throw err;
 
 	    var collection = db.collection('users');
-	    
-	    var user = idxName 
-	    	? {
-	    		"name": _name, 
-	    		"idx_name": idxName
-	    	  }
-	    	: {"name": _name};
+	    var user = {"name": _name};
 	    
 	    collection.insert(user, function(err, docs) {
 
-	      /*collection.count(function(err, count) {
-	        console.log(format("count = %s", count));
-	      });*/
-
-	      // Locate all the entries using find
-	      collection.find().toArray(function(err, results) {
-	        console.dir(results);
-	        // Let's close the db
-	        db.close();
-	        
-	        //res.redirect('/account/' + _name);	        
-	        res.redirect('/register');
-	      });      
+	      db.close();
+	      //res.redirect('/account/' + _name);
+	      res.redirect('/register');
 	    });
 	  });
 };

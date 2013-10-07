@@ -19,7 +19,7 @@ exports.get = function(req, res){
 	    var collection = db.collection('users');
 	    
 	    // Locate all the entries using find
-	    collection.find({idx_name : {'$regex' : new RegExp("^" + term) } }, {_id : 0, name : 1}).limit(6).toArray(function(err, results) {
+	    collection.find({name : {'$regex' : new RegExp("\\b" + term, "ig") } }, {_id : 0, name : 1}).limit(6).toArray(function(err, results) {
 	        // Let's close the db
 	        db.close();
 	        
